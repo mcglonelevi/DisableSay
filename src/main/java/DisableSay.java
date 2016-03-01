@@ -1,4 +1,5 @@
 import com.google.inject.Inject;
+import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Server;
 import org.spongepowered.api.command.args.CommandElement;
@@ -14,6 +15,9 @@ public class DisableSay {
     @Inject
     Game game;
 
+    @Inject
+    Logger logger;
+
     @Listener
     public void onInit(GameInitializationEvent event) {
         Server server = game.getServer();
@@ -23,6 +27,6 @@ public class DisableSay {
                 .arguments(GenericArguments.remainingJoinedStrings(Text.of("message")))
                 .executor(new DisableSayExecutor(server))
                 .build();
-        game.getCommandManager().register(this, disableSaySpec, "say");
+        game.getCommandManager().register(this, disableSaySpec, "say", "minecraft:say");
     }
 }
